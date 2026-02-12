@@ -1,0 +1,8 @@
+{
+  "name": "Aranya Classes - Ara, Bihar",
+  "description": "A stunning, responsive tuition provider website for Aranya Classes in Ara, Bihar, featuring smart educational features and an interactive flipping book syllabus.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
