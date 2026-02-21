@@ -9,7 +9,7 @@ import * as Icons from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AranyaLogo } from './components/Logo';
-import studentImg from './Aranya_classes_student.jpg';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,7 +86,7 @@ const App: React.FC = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-brown-900 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <div className="relative overflow-hidden rounded-3xl border border-white/10 glass">
                 <img
-                  src={studentImg}
+                  src="/Aranya_classes_student.jpg"
                   className="w-full object-cover h-[550px] transform group-hover:scale-105 transition-transform duration-1000"
                   alt="Academic Excellence"
                 />
@@ -97,7 +97,7 @@ const App: React.FC = () => {
                     <p className="text-orange-500 text-xs uppercase tracking-widest font-bold">Global Standards</p>
                   </div>
                   <div className="glass px-4 py-2 rounded-xl border border-white/20">
-                    <p className="text-white font-bold text-xs">EST. 2016</p>
+                    <p className="text-white font-bold text-xs">EST. 2017</p>
                   </div>
                 </div>
               </div>
