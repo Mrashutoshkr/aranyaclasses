@@ -27,7 +27,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
           className="flex items-center gap-4 cursor-pointer group"
           onClick={() => onPageChange('home')}
         >
-          <AranyaLogo className="w-12 h-12 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out" />
+          <AranyaLogo className="w-10 h-10 md:w-12 md:h-12 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out" />
           <div className="hidden sm:block">
             <h1 className="text-white font-cinzel font-bold leading-none tracking-widest text-lg">ARANYA</h1>
             <p className="text-[10px] text-orange-500 uppercase tracking-[0.3em]">Classes Ara</p>

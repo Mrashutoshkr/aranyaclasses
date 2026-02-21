@@ -9,6 +9,7 @@ import * as Icons from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AranyaLogo } from './components/Logo';
+import studentImg from './Aranya_classes_student.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,7 +58,7 @@ const App: React.FC = () => {
             <div className="text-white">
               <div className="flex items-center gap-6 mb-8">
                 <div className="p-1 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                  <AranyaLogo className="w-20 h-20" />
+                  <AranyaLogo className="w-16 h-16 md:w-20 md:h-20" />
                 </div>
                 <div>
                   <h2 className="text-orange-500 font-bold tracking-[0.4em] uppercase text-xs">Aranya Classes Ara</h2>
@@ -85,7 +86,7 @@ const App: React.FC = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-brown-900 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <div className="relative overflow-hidden rounded-3xl border border-white/10 glass">
                 <img
-                  src="https://images.unsplash.com/photo-1544717297-fa154daaffa3?auto=format&fit=crop&q=80&w=800"
+                  src={studentImg}
                   className="w-full object-cover h-[550px] transform group-hover:scale-105 transition-transform duration-1000"
                   alt="Academic Excellence"
                 />
@@ -132,7 +133,7 @@ const App: React.FC = () => {
             <div className="glass p-12 rounded-[3rem] border border-white/10 shadow-2xl">
               <div className="flex flex-col md:flex-row items-center gap-10 mb-12 border-b border-orange-500/20 pb-10">
                 <div className="p-2 bg-white rounded-full shadow-2xl transform hover:rotate-6 transition-transform">
-                  <AranyaLogo className="w-32 h-32 md:w-40 md:h-40" />
+                  <AranyaLogo className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40" />
                 </div>
                 <div className="text-center md:text-left">
                   <h2 className="text-5xl font-cinzel text-white mb-2">The Aranya Legacy</h2>
@@ -265,7 +266,7 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-10 mb-12">
             <div className="flex items-center gap-6">
               <div className="p-1 bg-white rounded-full">
-                <AranyaLogo className="w-16 h-16" />
+                <AranyaLogo className="w-12 h-12 md:w-16 md:h-16" />
               </div>
               <div>
                 <h3 className="font-cinzel text-white text-2xl tracking-[0.2em] uppercase">ARANYA CLASSES</h3>
