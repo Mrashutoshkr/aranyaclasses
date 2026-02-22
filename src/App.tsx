@@ -85,7 +85,7 @@ const App: React.FC = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-brown-900 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <div className="relative overflow-hidden rounded-3xl border border-white/10 glass">
                 <img
-                  src="/aranya-hero-image.jpg"
+                  src="/hero.png"
                   className="w-full object-cover h-[550px] transform group-hover:scale-105 transition-transform duration-1000"
                   alt="Academic Excellence"
                 />
