@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Scene3D from './components/Scene3D';
 import Navigation from './components/Navigation';
 import SyllabusMilestones from './components/SyllabusMilestones';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import SketchBackground from './components/SketchBackground';
 import { Page } from './types';
 import { SMART_FEATURES } from './constants';
 import * as Icons from 'lucide-react';
@@ -24,27 +26,47 @@ const App: React.FC = () => {
 
     // Scroll-driven animation for features if on home page
     if (currentPage === 'home') {
-      const trigger = ScrollTrigger.create({
-        trigger: ".feature-card-container",
-        start: "top 85%",
-        onEnter: () => {
-          gsap.fromTo(".feature-card",
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              stagger: 0.15,
-              duration: 1,
-              ease: "power4.out",
-              overwrite: 'auto'
-            }
-          );
-        },
-        once: true
+      const triggers: any[] = [];
+
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: ".feature-card-container",
+          start: "top 85%",
+          onEnter: () => {
+            gsap.fromTo(".feature-card",
+              { opacity: 0, y: 50 },
+              {
+                opacity: 1,
+                y: 0,
+                stagger: 0.15,
+                duration: 1,
+                ease: "power4.out",
+                overwrite: 'auto'
+              }
+            );
+          },
+          once: true
+        })
+      );
+
+      // Environment gallery images reveal - smooth emergence from background
+      gsap.utils.toArray('.env-image-container').forEach((container: any) => {
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: container,
+            start: "top 95%",
+            end: "center center",
+            scrub: 1.5,
+            animation: gsap.fromTo(container,
+              { opacity: 0, scale: 0.85, filter: "blur(15px) brightness(0.2)", y: 150 },
+              { opacity: 1, scale: 1, filter: "blur(0px) brightness(1)", y: 0, ease: "none" }
+            )
+          })
+        );
       });
 
       return () => {
-        trigger.kill();
+        triggers.forEach(t => t.kill());
       };
     }
   }, [currentPage]);
@@ -104,6 +126,42 @@ const App: React.FC = () => {
 
             <div className="lg:col-span-2 mt-32">
               <div className="text-center mb-16">
+                <h2 className="text-orange-500 font-bold tracking-[0.3em] uppercase text-xs mb-3">Campus Life</h2>
+                <h3 className="text-white text-5xl font-cinzel">The Aranya Experience</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 environment-gallery mb-32">
+                {/* Image 1: Students walking */}
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                  <img src="/students-walking.png" alt="Students walking in campus" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Our Campus</p>
+                    <p className="text-white font-cinzel text-xl drop-shadow-md">Serene Environment</p>
+                  </div>
+                </div>
+
+                {/* Image 2: Cosmic Classroom */}
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)] md:translate-y-12">
+                  <img src="/classroom-planets.png" alt="Colorful cosmic classroom" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Interactive Learning</p>
+                    <p className="text-white font-cinzel text-xl drop-shadow-md">Inspiring Classrooms</p>
+                  </div>
+                </div>
+
+                {/* Image 3: Teacher teaching */}
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                  <img src="/teacher-teaching.png" alt="Teacher explaining concept to students" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Expert Faculty</p>
+                    <p className="text-white font-cinzel text-xl drop-shadow-md">Personalized Attention</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center mb-16">
                 <h2 className="text-orange-500 font-bold tracking-[0.3em] uppercase text-xs mb-3">Smart Features</h2>
                 <h3 className="text-white text-5xl font-cinzel">Excellence Guaranteed</h3>
               </div>
@@ -129,33 +187,49 @@ const App: React.FC = () => {
       case 'about':
         return (
           <div className="page-content max-w-5xl mx-auto px-6 pt-40 pb-20">
-            <div className="glass p-12 rounded-[3rem] border border-white/10 shadow-2xl">
-              <div className="flex flex-col md:flex-row items-center gap-10 mb-12 border-b border-orange-500/20 pb-10">
+            <div className="glass p-12 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-orange-500/20 blur-3xl rounded-full"></div>
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-orange-500/10 blur-3xl rounded-full"></div>
+
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 mb-12 border-b border-orange-500/20 pb-10">
                 <div className="p-2 bg-white rounded-full shadow-2xl transform hover:rotate-6 transition-transform">
                   <AranyaLogo className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40" />
                 </div>
                 <div className="text-center md:text-left">
-                  <h2 className="text-5xl font-cinzel text-white mb-2">The Aranya Legacy</h2>
-                  <p className="text-orange-500 font-bold tracking-widest text-sm uppercase">Nurturing Minds in the Heart of Ara</p>
+                  <h2 className="text-5xl font-cinzel text-white mb-2">Director's Message</h2>
+                  <p className="text-orange-500 font-bold tracking-widest text-sm uppercase">Building a Foundation for Success</p>
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-12 text-gray-300 leading-relaxed text-lg">
-                <p>Aranya Classes is more than just a tuition center; it is a holistic learning ecosystem. Founded on the principle that knowledge should be as vast as a forest (Aranya), we offer personalized attention to students from Class 3 to 12.</p>
-                <p>We take pride in our "Bihar Local" curriculum integration, where we teach history, geography, and civic responsibility through the lens of our rich local heritage, combined with world-class science and math preparation.</p>
+
+              <div className="relative z-10 text-gray-300 leading-relaxed text-lg space-y-6">
+                <p className="font-semibold text-xl text-white font-cinzel italic">Dear Parents,</p>
+                <p>
+                  The middle school years (Classes 6 to 8) are a critical foundation for your child's academic success. During this phase, students transition from basic concepts to more complex topics in CBSE/NCERT syllabus subjects like Maths, Science, English, and Social Studies. A strong foundation here builds confidence, sharpens problem-solving skills, and prepares them for high school challenges like board exams and competitive tests (e.g., Olympiads or NTSE).
+                </p>
+                <p>
+                  Without it, students often struggle with advanced concepts later—imagine trying to build a tall tower on shaky ground! Our foundation program at Aranya classes focuses on:
+                </p>
+
+                <ul className="space-y-4 pl-4 mt-6 mb-6">
+                  <li className="flex items-start gap-3">
+                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                    <span><strong className="text-white">Concept clarity</strong> through interactive sessions and NCERT-based worksheets.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                    <span><strong className="text-white">Skill-building</strong> with regular assessments and doubt-clearing.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                    <span><strong className="text-white">Personalized guidance</strong> for Classes 6-8, ensuring 90%+ improvement in scores.</span>
+                  </li>
+                </ul>
+
+                <p className="font-bold text-orange-400 font-cinzel text-2xl mt-8 text-center border-t border-white/5 pt-8">
+                  Let's build a bright future together!
+                </p>
               </div>
-              <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { label: 'Experience', val: '9+ Years' },
-                  { label: 'Success', val: '1500+ Students' },
-                  { label: 'Ratio', val: '1:12 Elite' },
-                  { label: 'Support', val: '24/7 Digital' }
-                ].map((stat, i) => (
-                  <div key={i} className="text-center group p-6 glass rounded-2xl border border-white/5 hover:border-orange-500/30 transition-all">
-                    <div className="text-orange-500 font-bold text-3xl mb-1 group-hover:scale-110 transition-transform font-cinzel">{stat.val}</div>
-                    <div className="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+
             </div>
           </div>
         );
@@ -246,6 +320,9 @@ const App: React.FC = () => {
           </div>
         );
 
+      case 'privacy':
+        return <PrivacyPolicy />;
+
       default:
         return null;
     }
@@ -254,6 +331,7 @@ const App: React.FC = () => {
   return (
     <div className="relative min-h-screen">
       <Scene3D currentPage={currentPage} />
+      <SketchBackground />
       <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
       <div className="relative z-10">
         {renderContent()}
@@ -273,7 +351,7 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-10 text-gray-500 text-sm font-bold tracking-widest">
-              <a href="#" className="hover:text-orange-500 transition-colors uppercase">Privacy</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('privacy'); }} className="hover:text-orange-500 transition-colors uppercase">Privacy</a>
               <a href="#" className="hover:text-orange-500 transition-colors uppercase">Terms</a>
               <a href="#" className="hover:text-orange-500 transition-colors uppercase">Career</a>
             </div>
