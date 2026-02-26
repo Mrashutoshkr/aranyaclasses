@@ -12,23 +12,25 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AranyaLogo } from './components/Logo';
 
+import imgStudentsWalking from './assets/students-walking.png';
+import imgClassroomPlanets from './assets/classroom-planets.png';
+import imgTeacherTeaching from './assets/teacher-teaching.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
   useEffect(() => {
-    // Page transition animation
-    gsap.fromTo(".page-content",
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-    );
+    let ctx = gsap.context(() => {
+      // Page transition animation
+      gsap.fromTo(".page-content",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+      );
 
-    // Scroll-driven animation for features if on home page
-    if (currentPage === 'home') {
-      const triggers: any[] = [];
-
-      triggers.push(
+      // Scroll-driven animation for features if on home page
+      if (currentPage === 'home') {
         ScrollTrigger.create({
           trigger: ".feature-card-container",
           start: "top 85%",
@@ -46,29 +48,31 @@ const App: React.FC = () => {
             );
           },
           once: true
-        })
-      );
+        });
 
-      // Environment gallery images reveal - smooth emergence from background
-      gsap.utils.toArray('.env-image-container').forEach((container: any) => {
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: container,
-            start: "top 95%",
-            end: "center center",
-            scrub: 1.5,
-            animation: gsap.fromTo(container,
-              { opacity: 0, scale: 0.85, filter: "blur(15px) brightness(0.2)", y: 150 },
-              { opacity: 1, scale: 1, filter: "blur(0px) brightness(1)", y: 0, ease: "none" }
-            )
-          })
-        );
-      });
+        // Environment gallery images reveal - smooth emergence from background
+        gsap.utils.toArray('.env-image-container').forEach((container: any) => {
+          gsap.fromTo(container,
+            { opacity: 0, scale: 0.85, filter: "blur(15px) brightness(0.2)", y: 150 },
+            {
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px) brightness(1)",
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: container,
+                start: "top 95%",
+                end: "center center",
+                scrub: 1.5
+              }
+            }
+          );
+        });
+      }
+    });
 
-      return () => {
-        triggers.forEach(t => t.kill());
-      };
-    }
+    return () => ctx.revert();
   }, [currentPage]);
 
   const renderContent = () => {
@@ -132,9 +136,9 @@ const App: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 environment-gallery mb-32">
                 {/* Image 1: Students walking */}
                 <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                  <img src="/students-walking.png" alt="Students walking in campus" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
-                  <div className="absolute bottom-8 left-8 right-8">
+                  <img src={imgStudentsWalking} alt="Students walking in campus" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-8 left-8 right-8 z-10">
                     <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Our Campus</p>
                     <p className="text-white font-cinzel text-xl drop-shadow-md">Serene Environment</p>
                   </div>
@@ -142,9 +146,9 @@ const App: React.FC = () => {
 
                 {/* Image 2: Cosmic Classroom */}
                 <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)] md:translate-y-12">
-                  <img src="/classroom-planets.png" alt="Colorful cosmic classroom" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
-                  <div className="absolute bottom-8 left-8 right-8">
+                  <img src={imgClassroomPlanets} alt="Colorful cosmic classroom" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-8 left-8 right-8 z-10">
                     <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Interactive Learning</p>
                     <p className="text-white font-cinzel text-xl drop-shadow-md">Inspiring Classrooms</p>
                   </div>
@@ -152,9 +156,9 @@ const App: React.FC = () => {
 
                 {/* Image 3: Teacher teaching */}
                 <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 h-80 group env-image-container shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                  <img src="/teacher-teaching.png" alt="Teacher explaining concept to students" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent"></div>
-                  <div className="absolute bottom-8 left-8 right-8">
+                  <img src={imgTeacherTeaching} alt="Teacher explaining concept to students" className="w-full h-full object-cover origin-center transform group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0905]/90 via-[#0d0905]/40 to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-8 left-8 right-8 z-10">
                     <p className="text-orange-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">Expert Faculty</p>
                     <p className="text-white font-cinzel text-xl drop-shadow-md">Personalized Attention</p>
                   </div>
