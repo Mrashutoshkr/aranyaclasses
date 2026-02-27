@@ -284,14 +284,14 @@ const App: React.FC = () => {
                     <div className="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all shadow-lg"><Icons.MapPin size={30} /></div>
                     <div>
                       <p className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">Our Location</p>
-                      <p className="text-white text-xl">Nala Road, Ara, Bihar 802301</p>
+                      <p className="text-white text-xl">Judge Kothi More, Nala More.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-8 group">
                     <div className="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all shadow-lg"><Icons.Phone size={30} /></div>
                     <div>
                       <p className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">Call Us</p>
-                      <p className="text-white text-xl">+91 91223 34455</p>
+                      <p className="text-white text-xl">7763093175</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-8 group">
