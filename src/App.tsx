@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [isHindi, setIsHindi] = useState(false);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -191,48 +192,88 @@ const App: React.FC = () => {
       case 'about':
         return (
           <div className="page-content max-w-5xl mx-auto px-6 pt-40 pb-20">
-            <div className="glass p-12 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
+            <div className="glass p-8 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-32 h-32 bg-orange-500/20 blur-3xl rounded-full"></div>
               <div className="absolute bottom-0 right-0 w-40 h-40 bg-orange-500/10 blur-3xl rounded-full"></div>
 
-              <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 mb-12 border-b border-orange-500/20 pb-10">
-                <div className="p-2 bg-white rounded-full shadow-2xl transform hover:rotate-6 transition-transform">
-                  <AranyaLogo className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40" />
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 mb-12 border-b border-orange-500/20 pb-10">
+                <div className="flex flex-col md:flex-row items-center gap-10">
+                  <div className="p-2 bg-white rounded-full shadow-2xl transform hover:rotate-6 transition-transform">
+                    <AranyaLogo className="w-24 h-24 md:w-24 md:h-24 lg:w-32 lg:h-32" />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <h2 className="text-4xl md:text-5xl font-cinzel text-white mb-2">Director's Message</h2>
+                    <p className="text-orange-500 font-bold tracking-widest text-sm uppercase">Building a Foundation for Success</p>
+                  </div>
                 </div>
-                <div className="text-center md:text-left">
-                  <h2 className="text-5xl font-cinzel text-white mb-2">Director's Message</h2>
-                  <p className="text-orange-500 font-bold tracking-widest text-sm uppercase">Building a Foundation for Success</p>
-                </div>
+                <button
+                  onClick={() => setIsHindi(!isHindi)}
+                  className="bg-white/5 hover:bg-orange-500 hover:text-white border border-white/20 px-6 py-3 rounded-full text-gray-300 font-bold transition-all flex items-center gap-3 shrink-0"
+                >
+                  <Icons.Languages size={20} />
+                  {isHindi ? 'Read in English' : 'हिंदी में पढ़ें'}
+                </button>
               </div>
 
-              <div className="relative z-10 text-gray-300 leading-relaxed text-lg space-y-6">
-                <p className="font-semibold text-xl text-white font-cinzel italic">Dear Parents,</p>
-                <p>
-                  The middle school years (Classes 6 to 8) are a critical foundation for your child's academic success. During this phase, students transition from basic concepts to more complex topics in CBSE/NCERT syllabus subjects like Maths, Science, English, and Social Studies. A strong foundation here builds confidence, sharpens problem-solving skills, and prepares them for high school challenges like board exams and competitive tests (e.g., Olympiads or NTSE).
-                </p>
-                <p>
-                  Without it, students often struggle with advanced concepts later—imagine trying to build a tall tower on shaky ground! Our foundation program at Aranya classes focuses on:
-                </p>
+              {!isHindi ? (
+                <div className="relative z-10 text-gray-300 leading-relaxed text-lg space-y-6 animate-in fade-in duration-500">
+                  <p className="font-semibold text-xl text-white font-cinzel italic">Dear Parents,</p>
+                  <p>
+                    The middle school years (Classes 6 to 8) are a critical foundation for your child's academic success. During this phase, students transition from basic concepts to more complex topics in CBSE/NCERT syllabus subjects like Maths, Science, English, and Social Studies. A strong foundation here builds confidence, sharpens problem-solving skills, and prepares them for high school challenges like board exams and competitive tests (e.g., Olympiads or NTSE).
+                  </p>
+                  <p>
+                    Without it, students often struggle with advanced concepts later—imagine trying to build a tall tower on shaky ground! Our foundation program at Aranya classes focuses on:
+                  </p>
 
-                <ul className="space-y-4 pl-4 mt-6 mb-6">
-                  <li className="flex items-start gap-3">
-                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
-                    <span><strong className="text-white">Concept clarity</strong> through interactive sessions and NCERT-based worksheets.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
-                    <span><strong className="text-white">Skill-building</strong> with regular assessments and doubt-clearing.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
-                    <span><strong className="text-white">Personalized guidance</strong> for Classes 6-8, ensuring 90%+ improvement in scores.</span>
-                  </li>
-                </ul>
+                  <ul className="space-y-4 pl-4 mt-6 mb-6">
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">Concept clarity</strong> through interactive sessions and NCERT-based worksheets.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">Skill-building</strong> with regular assessments and doubt-clearing.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">Personalized guidance</strong> for Classes 6-8, ensuring 90%+ improvement in scores.</span>
+                    </li>
+                  </ul>
 
-                <p className="font-bold text-orange-400 font-cinzel text-2xl mt-8 text-center border-t border-white/5 pt-8">
-                  Let's build a bright future together!
-                </p>
-              </div>
+                  <p className="font-bold text-orange-400 font-cinzel text-2xl mt-8 text-center border-t border-white/5 pt-8">
+                    Let's build a bright future together!
+                  </p>
+                </div>
+              ) : (
+                <div className="relative z-10 text-gray-300 leading-relaxed text-lg space-y-6 animate-in fade-in duration-500">
+                  <p className="font-semibold text-xl text-white font-cinzel italic">प्रिय अभिभावक,</p>
+                  <p>
+                    मध्य विद्यालय के वर्ष (कक्षा 6 से 8) आपके बच्चे की शैक्षणिक सफलता के लिए एक महत्वपूर्ण नींव हैं। इस चरण के दौरान, छात्र गणित, विज्ञान, अंग्रेजी और सामाजिक विज्ञान जैसे CBSE/NCERT विषयों में बुनियादी अवधारणाओं से अधिक जटिल विषयों की ओर बढ़ते हैं। यहाँ एक मजबूत नींव आत्मविश्वास का निर्माण करती है, समस्या-समाधान कौशल को तेज करती है, और उन्हें हाई स्कूल की चुनौतियों जैसे बोर्ड परीक्षा और प्रतियोगी परीक्षाओं (उदा: ओलंपियाड या NTSE) के लिए तैयार करती है।
+                  </p>
+                  <p>
+                    इसके बिना, छात्र अक्सर बाद में उन्नत अवधारणाओं के साथ संघर्ष करते हैं—कल्पना करें कि अस्थिर जमीन पर एक लंबी इमारत बनाने की कोशिश की जा रही हो! अरन्या क्लासेस में हमारा न्यू फाउंडेशन प्रोग्राम निम्नलिखित पर केंद्रित है:
+                  </p>
+
+                  <ul className="space-y-4 pl-4 mt-6 mb-6">
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">कॉन्सेप्ट क्लैरिटी (Concept clarity)</strong> इंटरैक्टिव कक्षाओं और NCERT-आधारित वर्कशीट के माध्यम से।</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">कौशल-निर्माण (Skill-building)</strong> नियमित मूल्यांकन और हर तरह के शंका समाधान (doubt-clearing) के साथ।</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Icons.CheckCircle size={24} className="text-orange-500 mt-1 shrink-0" />
+                      <span><strong className="text-white">व्यक्तिगत मार्गदर्शन (Personalized guidance)</strong> कक्षा 6-8 के लिए, जिससे अंकों में 90%+ सुधार सुनिश्चित होता है।</span>
+                    </li>
+                  </ul>
+
+                  <p className="font-bold text-orange-400 font-cinzel text-2xl mt-8 text-center border-t border-white/5 pt-8">
+                    आइए मिलकर एक उज्ज्वल भविष्य का निर्माण करें!
+                  </p>
+                </div>
+              )}
 
             </div>
           </div>
@@ -247,9 +288,27 @@ const App: React.FC = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: 'Primary Wings', range: 'Class 3-5', color: 'border-green-500', icon: 'Sun' },
-                { title: 'Middle School', range: 'Class 6-8', color: 'border-orange-500', icon: 'Mountain' },
-                { title: 'Secondary Elite', range: 'Class 9-12', color: 'border-blue-500', icon: 'Compass' }
+                {
+                  title: 'Primary Wings',
+                  range: 'Class 3-5',
+                  color: 'border-green-500',
+                  icon: 'Lightbulb',
+                  features: ['Activity-based learning', 'Core Foundation', 'Weekly Worksheets', 'Bilingual Support']
+                },
+                {
+                  title: 'Middle School',
+                  range: 'Class 6-8',
+                  color: 'border-orange-500',
+                  icon: 'BookOpen',
+                  features: ['NCERT Integrated', 'Olympiad Coaching', 'Regular Assessments', 'Skill-building']
+                },
+                {
+                  title: 'Sainik School Prep',
+                  range: 'Class 6 & 9',
+                  color: 'border-blue-500',
+                  icon: 'Target',
+                  features: ['AISSEE 100% Preparation', 'Physical Training', '10 Years Past Papers', 'Expert Faculty']
+                }
               ].map((c, i) => {
                 const Icon = (Icons as any)[c.icon];
                 return (
@@ -257,15 +316,14 @@ const App: React.FC = () => {
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Icon size={120} className="text-white" />
                     </div>
-                    <h3 className="text-white text-4xl font-cinzel mb-2 group-hover:text-orange-400 transition-colors">{c.title}</h3>
-                    <p className="text-orange-500 font-bold mb-8 text-lg">{c.range}</p>
-                    <ul className="space-y-5 text-gray-400 mb-12">
-                      <li className="flex items-center gap-3"><Icons.CheckCircle size={20} className="text-orange-500" /> NCERT Integrated</li>
-                      <li className="flex items-center gap-3"><Icons.CheckCircle size={20} className="text-orange-500" /> Weekly Assessments</li>
-                      <li className="flex items-center gap-3"><Icons.CheckCircle size={20} className="text-orange-500" /> Olympiad Coaching</li>
-                      <li className="flex items-center gap-3"><Icons.CheckCircle size={20} className="text-orange-500" /> Bilingual Support</li>
+                    <h3 className="text-white text-3xl font-cinzel mb-2 group-hover:text-orange-400 transition-colors">{c.title}</h3>
+                    <p className="text-orange-500 font-bold mb-6 text-lg">{c.range}</p>
+                    <ul className="space-y-4 text-gray-400 mb-10 text-[15px]">
+                      {c.features.map((f, fi) => (
+                        <li key={fi} className="flex items-center gap-3"><Icons.CheckCircle size={20} className="text-orange-500" /> {f}</li>
+                      ))}
                     </ul>
-                    <button className="w-full py-5 rounded-full bg-white/5 text-white font-bold hover:bg-orange-500 hover:shadow-2xl transition-all border border-white/10 text-lg">Inquire Enrollment</button>
+                    <button className="w-full py-4 rounded-full bg-white/5 text-white font-bold hover:bg-orange-500 hover:shadow-2xl transition-all border border-white/10 text-[15px]">Inquire Enrollment</button>
                   </div>
                 );
               })}
